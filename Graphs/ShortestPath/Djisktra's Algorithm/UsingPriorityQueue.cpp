@@ -7,7 +7,8 @@ class Solution {
         }
         
         vector<int> Pathcost(V,-1);
-        priority_queue<pair<int,int>> qt;
+        // Min-heap to process nodes with the smallest path cost first
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> qt;
         qt.push({0,0});
         Pathcost[0] = 0;
         while(!qt.empty()){
