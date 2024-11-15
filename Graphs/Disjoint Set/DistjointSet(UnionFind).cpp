@@ -56,6 +56,5 @@ public:
 int main()
 {
     DisjointSet ds(7);
-
     return 0;
 }
