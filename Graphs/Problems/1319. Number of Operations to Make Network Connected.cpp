@@ -1,3 +1,8 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
 class DisjointSet {
     vector<int> rank, uparent;
 
@@ -37,7 +42,7 @@ class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
         if (connections.size() < n - 1)
-            return -1; 
+            return -1;
 
         DisjointSet ds(n);
         int extraCables = 0;
@@ -46,9 +51,9 @@ public:
             int u = conn[0];
             int v = conn[1];
             if (ds.findUparent(u) == ds.findUparent(v)) {
-                extraCables++; 
+                extraCables++;
             } else {
-                ds.UnionByRank(u, v); 
+                ds.UnionByRank(u, v);
             }
         }
 
@@ -62,6 +67,28 @@ public:
         if (extraCables >= components - 1)
             return components - 1;
 
-        return -1; 
+        return -1;
     }
 };
+
+int main() {
+    // Input n and connections
+    int n, m;
+    cout << "Enter the number of nodes (n): ";
+    cin >> n;
+
+    cout << "Enter the number of connections: ";
+    cin >> m;
+
+    vector<vector<int>> connections(m, vector<int>(2));
+    cout << "Enter the connections (each pair of nodes):" << endl;
+    for (int i = 0; i < m; i++) {
+        cin >> connections[i][0] >> connections[i][1];
+    }
+
+    Solution sol;
+    int result = sol.makeConnected(n, connections);
+    cout << "Minimum number of operations to connect all computers: " << result << endl;
+
+    return 0;
+}
