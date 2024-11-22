@@ -78,6 +78,49 @@ bool subsetSumToK(int n, int k, vector<int> &arr) {
  */
 
 
+// Tabulation
+int perfectSum(vector<int>& arr, int target) {
+    int n = arr.size();
+
+    // DP table to store the count of subsets for each sum.
+    // dp[i][j] represents the number of subsets using the first 'i+1' elements that sum up to 'j'.
+    vector<vector<int>> dp(n, vector<int>(target + 1, 0));
+
+    // Base case: If the target sum is 0, there is always one subset (the empty subset).
+    for (int i = 0; i < n; i++) dp[i][0] = 1;
+
+    // Initialize for the first element:
+    // If the first element is less than or equal to the target, include it as a valid subset.
+    if (arr[0] <= target) dp[0][arr[0]] = 1;
+
+    // Fill the DP table.
+    for (int index = 1; index < n; index++) { // Iterate through the array.
+        for (int sum = 0; sum <= target; sum++) { // Iterate through all possible sums up to the target.
+            // Not Take: Exclude the current element.
+            int notTake = dp[index - 1][sum];
+
+            // Take: Include the current element if it doesn't exceed the current sum.
+            int take = 0;
+            if (arr[index] <= sum) take = dp[index - 1][sum - arr[index]];
+
+            // Total count of subsets for the current sum.
+            dp[index][sum] = take + notTake;
+        }
+    }
+
+    // Return the count of subsets that sum up to the target.
+    return dp[n - 1][target];
+}
+// The outer loop iterates through all elements in the array (n iterations).
+// The inner loop iterates through all possible sums from 0 to target (target + 1 iterations).
+// Hence, TC = 𝑂(𝑛×target)
+// O(n×target).
+
+// A 2D DP table of size 
+// 𝑛×(target+1) n×(target+1) is used.
+// Hence, SC = 𝑂(𝑛×target)
+// O(n×target).
+
 
 bool subsetSumToK(int n, int k, vector<int> &arr) {
     // Initialize a vector 'prev' to store the previous row of the DP table
