@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+// Memoization
+
 class Solution {
     // Helper function for the recursive + memoization approach
     int helper(string &s, string &t, int i, int j, vector<vector<int>> &dp) {
@@ -51,5 +53,49 @@ Time Complexity (TC): O(n1 * n2)
 
 Space Complexity (SC): O(n1 * n2) for the DP table.
 - The recursion stack space is proportional to the length of `s` (O(n1)) but can be optimized in the iterative version.
+
+*/
+
+
+// Tabulation
+
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        int n1 = s.size(), n2 = t.size();
+        vector<vector<double>> dp(n1 + 1, vector<double>(n2 + 1, 0));
+
+        // Base case: If `t` is empty, there is exactly one subsequence of `s` that matches `t`.
+        for (int i = 0; i <= n1; i++) {
+            dp[i][0] = 1;
+        }
+
+        // Fill the DP table iteratively
+        for (int i = 1; i <= n1; i++) {
+            for (int j = 1; j <= n2; j++) {
+                if (s[i - 1] == t[j - 1]) {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]; // Take + Not take
+                } else {
+                    dp[i][j] = dp[i - 1][j]; // Skip the current character in `s`
+                }
+            }
+        }
+
+        // The result is stored in dp[n1][n2]
+        return (int)dp[n1][n2];
+    }
+};
+
+
+/*
+Time Complexity (TC): O(n1 * n2)
+- We iterate through the entire DP table of size `n1 x n2`, where `n1` is the length of `s` and `n2` is the length of `t`.
+
+Space Complexity (SC): O(n1 * n2)
+- A 2D DP table of size `(n1 + 1) x (n2 + 1)` is used to store intermediate results.
+
+Key Points:
+1. The use of `double` for the DP table ensures that large values do not cause overflow, especially when `s` and `t` have large sizes.
+2. The final result is cast to `int` since the number of distinct subsequences must be an integer.
 
 */
