@@ -5,6 +5,9 @@ using namespace std;
 
 class Solution {
 public:
+
+
+
     // Function to replace each element with its rank in the sorted array.
     vector<int> replaceWithRank(vector<int>& arr) {
         vector<int> demo(arr.begin(), arr.end());
