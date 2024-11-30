@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+// Kahn's
 using namespace std;
     vector<int> topologicalSort(vector<vector<int>>& adj) {
         vector<int> indegree(adj.size(),0);
