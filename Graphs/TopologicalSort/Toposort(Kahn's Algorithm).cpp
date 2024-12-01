@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-// Kahn's Algor
+// Kahn's Algorithm
 using namespace std;
     vector<int> topologicalSort(vector<vector<int>>& adj) {
         vector<int> indegree(adj.size(),0);
@@ -15,9 +15,15 @@ using namespace std;
             if (indegree[i] == 0) qt.push(i);
         }
 
+
+
+
+
         vector<int> ans;
         while(!qt.empty()){
+
             int front = qt.front();
+            
             qt.pop();
             ans.push_back(front);
             for(int i: adj[front]){
