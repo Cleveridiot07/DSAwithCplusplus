@@ -3,31 +3,58 @@
 using namespace std;
 
 class Solution {
-    int ways(int n, vector<int> &dp) {
-        if (n <= 1) return 1;
-        if (dp[n] != -1) return dp[n];
-        return dp[n] = ways(n - 1, dp) + ways(n - 2, dp);
-    }
 public:
+// Recursion
+    // int climbStairs(int n) {
+    //     if(n <= 2) return n;
+    //     return climbStairs(n-1) + climbStairs(n-2);
+    // }
+    
+    // Time Complexity = O(2^n)
+    // Space Complexity = O(n) for Recursion Stack 
+
+// Memoization
+    // int helper(int n, vector<int> &dp){
+    //     if(n <= 2) return n;
+    //     if(dp[n] != -1) return dp[n];
+    //     return dp[n] = helper(n-1,dp) + helper(n-2,dp);
+    // }
+    // int climbStairs(int n) {
+    //     vector<int> dp(n+1,-1);
+    //     return helper(n,dp);
+    // }
+    // Time Complexity = O(n) 
+    // Space Complexity = O(n) for Recursion Stack + O(n) for dp vector 
+
+// Tabulation
+    // int climbStairs(int n) {
+    //     vector<int> dp(n+1);
+    //     dp[0] = 0;
+    //     dp[1] = 1;
+    //     if(n>=2) dp[2] = 2;
+    //     for(int i=3;i<=n;i++){
+    //         dp[i] =dp[i-1] + dp[i-2];
+    //     }
+    //     return dp[n];
+    // }
+    // Time Complexity = O(n) 
+    // Space Complexity = O(n) for dp vector 
+
+// swap method
     int climbStairs(int n) {
-        vector<int> dparray(n + 1, -1);
-        return ways(n, dparray);
+        int a = 1;
+        int b = 2;
+        if(n <= 2) return n;
+        int c;
+        while(n-2 > 0){
+            c = a+b;
+            a = b;
+            b = c;
+            n--;
+        }
+        return c;
     }
+    // Time Complexity = O(n) 
+    // Space Complexity = O(1) for additional variables 
+    
 };
-
-int main() {
-    Solution solution;
-    int n;
-
-    // Input number of steps
-    cout << "Enter the number of steps: ";
-    cin >> n;
-
-    // Calculate the number of ways to climb stairs
-    int result = solution.climbStairs(n);
-
-    // Output the result
-    cout << "Number of ways to climb " << n << " steps: " << result << endl;
-
-    return 0;
-}
