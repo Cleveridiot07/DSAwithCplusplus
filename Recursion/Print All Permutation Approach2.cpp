@@ -25,6 +25,8 @@ void helper(vector<vector<int>> &output,vector<int> &pre,int index,vector<int> &
 
 }
 
+// Time Complexity : O(n!*n)
+// Space Complexity : O(n) no* visited array, recursion stack + Output 2D array (n!*n); 
 
 int main(){
     int n;
