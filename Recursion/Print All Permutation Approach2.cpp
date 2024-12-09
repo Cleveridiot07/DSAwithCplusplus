@@ -7,21 +7,20 @@
 #include <string>
 #include <iostream>
 using namespace std;
-void helper(vector<vector<int>> &output,vector<int> &pre,vector<bool> visited,vector<int> &arr){
+void helper(vector<vector<int>> &output,vector<int> &pre,int index,vector<int> &arr){
     if(pre.size()>= arr.size()){
         output.push_back(pre);
         return;
     }
 
-    for(int i=0;i<arr.size();i++){
-        if(!visited[i]){
+    for(int i=index;i<arr.size();i++){
             pre.push_back(arr[i]);
-            visited[i] = true;
-            helper(output,pre,visited,arr);
+            swap(arr[index],arr[i]);
+            
+            helper(output,pre,index+1,arr);
 
             pre.pop_back();
-            visited[i] = false;
-        }
+            swap(arr[index],arr[i]);
     }
 
 }
@@ -41,7 +40,7 @@ int main(){
     vector<int> pre;
 
 
-    helper(output,pre,visited,arr);
+    helper(output,pre,0,arr);
 
     for(auto arr: output){
         for(int i: arr){
