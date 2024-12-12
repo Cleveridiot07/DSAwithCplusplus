@@ -10,6 +10,10 @@ using namespace std;
 
 // Liner Traversal will be more efficirnt as the TC here in O(nlogn) for sorting
 
+
+
+
+
     vector<int> getFloorAndCeil(int k, vector<int> &arr) {
         int s = 0, e = arr.size()-1;
         int flr = -1;
