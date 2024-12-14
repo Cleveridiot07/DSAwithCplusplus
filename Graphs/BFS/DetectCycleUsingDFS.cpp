@@ -1,3 +1,12 @@
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <climits>
+#include <string>
+#include <iostream>
+using namespace std;
 bool hasCycle(vector<vector<int>>& adj, int node, vector<bool>& visited, vector<bool>& pathvisited) {
     visited[node] = true;
     pathvisited[node] = true;
