@@ -1,3 +1,14 @@
+
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <climits>
+#include <string>
+#include <iostream>
+#include <stack>
+using namespace std;
 class Solution
 {
 	
@@ -21,6 +32,7 @@ public:
 			// add it to the mst
 			vis[node] = 1;
 			sum += wt;
+			
 			for (auto it : adj[node]) {
 				int adjNode = it[0];
 				int edW = it[1];
