@@ -6,6 +6,7 @@
 #include <climits>
 #include <string>
 #include <iostream>
+#include <stack>
 using namespace std;
 
 void printv(vector<int> v){

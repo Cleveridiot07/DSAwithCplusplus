@@ -1,7 +1,13 @@
-#include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
+#include <map>
+#include <unordered_map>
+#include <climits>
+#include <string>
 #include <stack>
+#include <iostream>
+using namespace std;
 vector<int> topologicalSort(vector<vector<int>>& adj) {
     stack<int> ans;  // To store the topologically sorted nodes
     vector<bool> visited(adj.size(), false);  // To track visited nodes
