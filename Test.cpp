@@ -16,8 +16,6 @@ void printv(vector<int> v){
 
 int Knapsack(){
 
-
-
     return 0;
 }
 
