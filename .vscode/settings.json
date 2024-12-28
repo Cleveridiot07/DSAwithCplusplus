@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "queue": "cpp"
+        "queue": "cpp",
+        "algorithm": "cpp",
+        "limits": "cpp",
+        "utility": "cpp",
+        "xutility": "cpp",
+        "format": "cpp",
+        "xstring": "cpp"
     }
 }
