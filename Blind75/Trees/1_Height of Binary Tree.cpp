@@ -48,8 +48,8 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-
-// O(log n)
+// Interative Solution
+// TC: O(log n)
 class Solution
 {
 public:
@@ -73,6 +73,18 @@ public:
                 st.push({cnode->left, currentLevel + 1});
         }
         return height;
+    }
+};
+
+// Recursive Solution (Better Space Complexity)
+// TC : O(logn)
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if (root == nullptr) return 0;
+        int leftDepth = maxDepth(root->left);
+        int rightDepth = maxDepth(root->right);
+        return 1 + max(leftDepth, rightDepth);
     }
 };
 
