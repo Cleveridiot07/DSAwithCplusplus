@@ -6,6 +6,6 @@ public:
             if(mp.find(ch)!= mp.end()) return ch;
             else mp[ch]++;
         }
-        return 'a';
+        return ' ';
     }
 };
