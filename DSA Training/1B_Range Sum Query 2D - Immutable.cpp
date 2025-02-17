@@ -8,9 +8,6 @@
 #include <iostream>
 #include <stack>
 #include <set>
-#include <algorithm>
-#include <numbers>
-#include <numeric>
 using namespace std;
 
 // Typedefs
@@ -40,50 +37,42 @@ void printVector(vector<T> &arr) {
     cout << endl;
 }
 
-void clever() {
-    
-    int n;
-    cin>>n;
-    vector<int> arr(n);
+class NumMatrix {
+    vector<vector<int>> prefix;
+public:
+    NumMatrix(vector<vector<int>>& matrix) {
+        int m = matrix.size(), n = matrix[0].size();
+        prefix = vector<vector<int>>(m + 1, vector<int>(n + 1, 0));
 
-    for(int i=0;i<n;i++) cin>>arr[i];
-    
-    int l,r;
-    cin>>l>>r;
-    
-    
-    vector<int> prefixGCD(n);
-    vector<int> suffixGCD(n);
-    
-    prefixGCD[0] = arr[0];
-    
-    for(int i=1;i<n;i++){
-        prefixGCD[i] = __gcd(arr[i],prefixGCD[i-1]);
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                prefix[i][j] = matrix[i - 1][j - 1] + 
+                               prefix[i - 1][j] + 
+                               prefix[i][j - 1] - 
+                               prefix[i - 1][j - 1];
+            }
+        }
     }
     
-    suffixGCD[n-1] = arr[n-1];
-    for(int i=n-2;i>=0;i--){
-        suffixGCD[i] = __gcd(arr[i],suffixGCD[i+1]);
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        row1++, col1++, row2++, col2++;
+        return prefix[row2][col2] - prefix[row1 - 1][col2] - 
+               prefix[row2][col1 - 1] + prefix[row1 - 1][col1 - 1];
     }
-    
-    
-    int result = 0;
-    if (l > 0) result = prefixGCD[l - 1]; 
-    if (r < n - 1) result = __gcd(result, suffixGCD[r + 1]);
-    
-    
-    cout<< result<<endl;
-    
-    
+};
+
+
+void clever() {
+    // write your code here
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while (t--) {
-       clever();  
+        clever();
     }
     return 0;
 }
