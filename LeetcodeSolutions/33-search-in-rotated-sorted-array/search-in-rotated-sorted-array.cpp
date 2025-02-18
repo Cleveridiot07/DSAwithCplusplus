@@ -11,9 +11,8 @@ private:
                 else s= mid+1;
             }
         }
-        return n-1;
-        
-    }
+        return n;
+        }
     int binarysearch(vector<int>& nums,int s,int e,int target){
         while(s<=e){
             int mid = s+(e-s)/2;
