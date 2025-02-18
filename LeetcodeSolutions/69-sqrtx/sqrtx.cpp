@@ -5,7 +5,7 @@ public:
         int sqr = 0;
         while( s <= e){
             long long int mid = s + (e-s)/2;
-            if(mid*mid == x) return mid;
+            if(mid*mid*1L == x) return mid;
             else if(mid*mid < x){
                 sqr = mid;
                 s = mid+1;
