@@ -5,11 +5,10 @@ public:
         int i = 0, j = 0;
         int count = 0;
         while(i <= j && j < nums.size()){
-            int curr = nums[j] - nums[i];
-            if(i == j || curr < k){
+            if(i == j || nums[j] - nums[i] < k){
                 j++;
             }
-            else if(curr == k){ 
+            else if(nums[j] - nums[i] == k){ 
                 count++;
                 j++;
                 while(j < nums.size() && nums[j] == nums[j-1]) j++;
