@@ -5,7 +5,7 @@ public:
         int i = 0, j = 0;
         int count = 0;
         while(i <= j && j < nums.size()){
-            int curr = abs(nums[j] - nums[i]);
+            int curr = nums[j] - nums[i];
             if(i == j || curr < k){
                 j++;
             }
