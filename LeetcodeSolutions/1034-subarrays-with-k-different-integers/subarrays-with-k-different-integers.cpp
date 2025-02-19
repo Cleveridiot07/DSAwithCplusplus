@@ -1,7 +1,7 @@
 class Solution {
     int subarrayWithLessThanKDistinct(vector<int>& nums, int k) {
         if (k == 0) return 0; 
-        unordered_map<int, int> mp;
+      map<int, int> mp;
         int i = 0, j = 0;
         int count = 0;
         while (j < nums.size()) {
