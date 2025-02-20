@@ -10,10 +10,9 @@ public:
         sort(arr.begin(),arr.end(),Solution::comparator);
         string ans = "";
         for( int i=arr.size()-1;i>=0;i--) ans += arr[i];
-        while(ans.size()>1){
-            if(ans[0]=='0') ans.pop_back();
-            else break;
-        }
+
+            if(ans[0]=='0') return "0";
+
         return ans;
     }
 };
