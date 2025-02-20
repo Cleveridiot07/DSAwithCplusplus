@@ -4,25 +4,47 @@ public:
         vector<int> ans;
         int m = s.size();
         int n = p.size();
-        if (m < n) return ans; 
+        if (m < n) return ans;
 
         vector<int> freqCountS(26, 0);
         vector<int> freqCountP(26, 0);
-       for (int i = 0; i < n; i++) {
+        int required = 0;
+
+        for (int i = 0; i < n; i++) {
             freqCountP[p[i] - 'a']++;
             freqCountS[s[i] - 'a']++;
         }
 
-   
-        if (freqCountS == freqCountP) ans.push_back(0);
-
-
-        for (int i = n; i < m; i++) {
-            freqCountS[s[i] - 'a']++;
-            freqCountS[s[i - n] - 'a']--;
-            if (freqCountS == freqCountP) ans.push_back(i - n + 1);
+        for (int i = 0; i < 26; i++) {
+            if (freqCountS[i] != freqCountP[i]) required++;
         }
-        
+
+        int i = 0, j = n;
+        while (j <= m) {
+            if (required == 0) ans.push_back(i);
+
+            if (freqCountS[s[i] - 'a'] == freqCountP[s[i] - 'a']) 
+                required++;
+
+            freqCountS[s[i] - 'a']--;
+
+            if (freqCountS[s[i] - 'a'] == freqCountP[s[i] - 'a']) 
+                required--;
+
+            if (j < m) {
+                if (freqCountS[s[j] - 'a'] == freqCountP[s[j] - 'a']) 
+                    required++;
+
+                freqCountS[s[j] - 'a']++;
+
+                if (freqCountS[s[j] - 'a'] == freqCountP[s[j] - 'a']) 
+                    required--;
+            }
+
+            i++;
+            j++;
+        }
+
         return ans;
     }
 };
