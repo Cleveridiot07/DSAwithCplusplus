@@ -1,5 +1,6 @@
 class Solution {
     bool compareMap(unordered_map<char,int> mp1,unordered_map<char,int> mp2){
+        if(mp1.size() != mp2.size()) return false;
         for( auto it: mp1){
             if (mp2.find(it.first) != mp2.end()){
                 if (mp2[it.first] != it.second) return false;
