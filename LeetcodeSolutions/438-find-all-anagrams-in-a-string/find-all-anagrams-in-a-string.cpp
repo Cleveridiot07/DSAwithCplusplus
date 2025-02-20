@@ -1,38 +1,28 @@
 class Solution {
-    bool compareMap(unordered_map<char,int> mp1,unordered_map<char,int> mp2){
-        if(mp1.size() != mp2.size()) return false;
-        for( auto it: mp1){
-            if (mp2.find(it.first) != mp2.end()){
-                if (mp2[it.first] != it.second) return false;
-            }else return false;
-        }
-        return true;
-    }
 public:
     vector<int> findAnagrams(string s, string p) {
         vector<int> ans;
-        unordered_map<char,int> pattern;
-        unordered_map<char,int> cstring;
-        
-        
-        int patternSize = p.size();
-        int i = 0, j = 0;
-        
-        while(j<patternSize){
-            pattern[p[j]]++;
-            if(j<patternSize-1) cstring[s[j]]++;
-            j++;
-        }
-        j--;
-        while(j<s.size()){
-            cstring[s[j]]++;
-            if (compareMap(pattern,cstring)) ans.push_back(i);
-            cstring[s[i]]--;
-            if(cstring[s[i]] == 0) cstring.erase(s[i]);
-            i++;
-            j++;
+        int m = s.size();
+        int n = p.size();
+        if (m < n) return ans; 
+
+        vector<int> freqCountS(26, 0);
+        vector<int> freqCountP(26, 0);
+       for (int i = 0; i < n; i++) {
+            freqCountP[p[i] - 'a']++;
+            freqCountS[s[i] - 'a']++;
         }
 
+   
+        if (freqCountS == freqCountP) ans.push_back(0);
+
+
+        for (int i = n; i < m; i++) {
+            freqCountS[s[i] - 'a']++;
+            freqCountS[s[i - n] - 'a']--;
+            if (freqCountS == freqCountP) ans.push_back(i - n + 1);
+        }
+        
         return ans;
     }
 };
