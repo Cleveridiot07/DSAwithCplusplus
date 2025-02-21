@@ -21,15 +21,6 @@ class Solution {
         }
         return prev; 
     }
-    ListNode* mergeList(ListNode* head1,ListNode* head2) {
-        if(head1 == nullptr) return head2;
-        ListNode* temp = head1;
-        while (temp->next != nullptr) {
-            temp = temp->next;              
-        }
-        temp->next = head2;
-        return head1; 
-    }
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head == nullptr) return head;
