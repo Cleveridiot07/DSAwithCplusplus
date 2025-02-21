@@ -1,107 +1,81 @@
 class MyLinkedList {
+private:
+    struct ListNode {
+        int val;
+        ListNode* next;
+        ListNode(int x) : val(x), next(nullptr) {}
+    };
+    
     ListNode* head;
+    int size;
+
 public:
     MyLinkedList() {
         head = nullptr;
+        size = 0;
     }
     
     int get(int index) {
-        ListNode* temp = head;
-        while(index>0 && temp!= nullptr){
-            temp = temp->next;
-            index--;
+        if (index < 0 || index >= size) return -1;
+        ListNode* curr = head;
+        for (int i = 0; i < index; i++) {
+            curr = curr->next;
         }
-        if(temp!=nullptr) return temp->val;
-        return -1;
+        return curr->val;
     }
     
     void addAtHead(int val) {
-        ListNode* node =new ListNode();
-        node->val = val;
-        node->next = nullptr;
-        if(head == nullptr){
-            head = node;
-        }else{
-            ListNode* temp = head;
-            head = node;
-            node->next = temp;
-        }
+        ListNode* newNode = new ListNode(val);
+        newNode->next = head;
+        head = newNode;
+        size++;
     }
     
     void addAtTail(int val) {
-        ListNode* node = new ListNode();
-        node->val = val;
-        node->next = nullptr;
-        if(head == nullptr){
-            head = node;
-        }else{
-            ListNode* temp = head;
-            while(temp->next != nullptr){
-                temp = temp->next;
+        ListNode* newNode = new ListNode(val);
+        if (!head) {
+            head = newNode;
+        } else {
+            ListNode* curr = head;
+            while (curr->next) {
+                curr = curr->next;
             }
-            temp->next = node;
+            curr->next = newNode;
         }
+        size++;
     }
     
     void addAtIndex(int index, int val) {
-        ListNode* node =new ListNode();
-        node->val = val;
-        node->next = nullptr;
-        // head is null
-        if(head == nullptr){
-            if(index != 0) return;
-            head = node;
-            return; 
-        }
-
-
-        ListNode* temp = head;
-        // inserting at head when head is not null
-        if(index == 0){
-            head = node;
-            node -> next = temp;
+        if (index < 0 || index > size) return;
+        if (index == 0) {
+            addAtHead(val);
             return;
         }
-
-        while(index>1 && temp!= nullptr){
-            temp = temp->next;
-            index--;
+        ListNode* newNode = new ListNode(val);
+        ListNode* curr = head;
+        for (int i = 0; i < index - 1; i++) {
+            curr = curr->next;
         }
-
-        if(temp == nullptr) return addAtTail(val);
-        ListNode* next = temp->next;
-        temp->next = node;
-        node->next = next;
-        return;
+        newNode->next = curr->next;
+        curr->next = newNode;
+        size++;
     }
     
     void deleteAtIndex(int index) {
-        if (!head) return; 
-
-        ListNode* temp = head;
-
+        if (index < 0 || index >= size) return;
+        ListNode* temp;
         if (index == 0) {
+            temp = head;
             head = head->next;
-            delete temp;
-            return;
+        } else {
+            ListNode* curr = head;
+            for (int i = 0; i < index - 1; i++) {
+                curr = curr->next;
+            }
+            temp = curr->next;
+            curr->next = curr->next->next;
         }
-        for (int i = 0; temp != nullptr && i < index - 1; i++) {
-            temp = temp->next;
-        }
-        if (!temp || !temp->next) return;
-        ListNode* nodeToDelete = temp->next;
-        temp->next = temp->next->next;
-        delete nodeToDelete;
+        delete temp;
+        size--;
     }
-
 };
-
-/**
- * Your MyLinkedList object will be instantiated and called as such:
- * MyLinkedList* obj = new MyLinkedList();
- * int param_1 = obj->get(index);
- * obj->addAtHead(val);
- * obj->addAtTail(val);
- * obj->addAtIndex(index,val);
- * obj->deleteAtIndex(index);
- */
