@@ -34,16 +34,23 @@ public:
     ListNode* reverseKGroup(ListNode* head, int k) {
         if(head == nullptr) return head;
         ListNode* temp = head;
-        int t= k;
+        
+        int t = k;
+        
         while(t>1 && temp!= nullptr){
             temp = temp -> next;
             t--;
         }
+        
         if(temp == nullptr) return head;
+        
         ListNode* nextList = nullptr;
+        
         if(temp!=nullptr) nextList = temp->next;
         if(temp!=nullptr) temp->next = nullptr;
+        
         ListNode* rev = reverseList(head);
-        return mergeList(rev,reverseKGroup(nextList,k));
+        head->next = reverseKGroup(nextList,k);
+        return rev;
     }
 };
