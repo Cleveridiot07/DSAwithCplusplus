@@ -1,28 +1,20 @@
 class Solution {
-    void helper(vector<vector<int>> &output,unordered_map<int,int> mp,vector<int> pre,int n,int index){
-        if(index >= n){
-            output.push_back(pre);
+public:
+    void helper(vector<int> num, int i, int j, vector<vector<int> > &output) {
+        if (i == j-1) {
+            output.push_back(num);
             return;
         }
-
-        for(auto& it:mp){
-            if(it.second > 0){
-                pre.push_back(it.first);
-                it.second--;
-                helper(output,mp,pre,n,index+1);
-                pre.pop_back();
-                it.second++;
-            }
+        for (int k = i; k < j; k++) {
+            if (i != k && num[i] == num[k]) continue;
+            swap(num[i], num[k]);
+            helper(num, i+1, j, output);
         }
-
-        return;
     }
-public:
-    vector<vector<int>> permuteUnique(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(auto it:nums) mp[it]++;
-        vector<vector<int>> ans;
-        helper(ans,mp,{},nums.size(),0);
-        return ans;
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        sort(num.begin(), num.end());
+        vector<vector<int> >output;
+        helper(num, 0, num.size(), output);
+        return output;
     }
 };
