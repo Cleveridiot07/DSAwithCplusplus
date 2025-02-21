@@ -4,7 +4,7 @@ class Solution {
     }
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end(),comparator);
+        sort(intervals.begin(),intervals.end());
         vector<vector<int>> ans(intervals.begin(), intervals.end());
         int i = 1;
         while(i<ans.size() && ans.size()>1){
