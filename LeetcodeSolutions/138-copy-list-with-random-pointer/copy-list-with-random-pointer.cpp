@@ -42,15 +42,15 @@ public:
         }
 
         curr1 = head;
-        Node* copyHead = head->next;
-        curr2 = copyHead;
-
-        while (curr1) {
-            curr1->next = curr1->next ? curr1->next->next : nullptr;
+        curr2 = head->next;
+        Node* copyHead = curr2;
+        
+        while(curr1){
+            curr1->next = curr1->next->next;
             curr1 = curr1->next;
-            if (curr2->next) {
+            if(curr2->next != nullptr){
                 curr2->next = curr2->next->next;
-                curr2 = curr2->next;
+                curr2 =curr2->next;
             }
         }
         
