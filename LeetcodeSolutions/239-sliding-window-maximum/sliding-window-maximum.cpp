@@ -1,17 +1,23 @@
+#include <queue>
+#include <vector>
+using namespace std;
+
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        multiset<int> ms;
-        vector<int> ans;
-        for(int i=0;i<nums.size();i++){
-            ms.insert(nums[i]);
-            if(i >= k-1){
-                ans.push_back(*ms.rbegin());
-                std::multiset<int>::iterator it = ms.find(nums[i-k+1]);
-                ms.erase(it);
+        priority_queue<pair<int, int>> pq; 
+        vector<int> result;
+        
+        for (int j = 0; j < nums.size(); j++) {
+            pq.push({nums[j], j});
+            if (j >= k - 1) {
+                while (pq.top().second <= j - k) {
+                    pq.pop();
+                }
+                result.push_back(pq.top().first);
             }
         }
-
-        return ans;
+        
+        return result;
     }
 };
