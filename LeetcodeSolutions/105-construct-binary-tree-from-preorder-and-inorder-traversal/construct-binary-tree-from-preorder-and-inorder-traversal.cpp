@@ -10,17 +10,20 @@
  * };
  */
 class Solution {
-    int preIndex = 0;
+    // int preIndex = 0;
     TreeNode* treeBuilder(vector<int>& preorder, vector<int>& inorder,int s,int e){
         if(s>e) return nullptr;
         
-        int val = preorder[preIndex++];
+        int val = preorder[0];
         TreeNode* root = new TreeNode(val);
 
         int inIndex = s;
         while(inIndex <= e && inorder[inIndex] != val){
             inIndex++;
         }
+
+        preorder.erase(preorder.begin());
+
 
         root->left = treeBuilder(preorder,inorder,s,inIndex - 1);
         root->right = treeBuilder(preorder,inorder,inIndex+1,e);
