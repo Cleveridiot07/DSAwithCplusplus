@@ -1,8 +1,9 @@
 class Codec {
 public:
 
+    // Encodes a tree to a single string.
     string serialize(TreeNode* root) {
-        if (!root) return "#";  
+        if (!root) return "";  // Empty tree
 
         queue<TreeNode*> q;
         q.push(root);
@@ -17,37 +18,45 @@ public:
                 q.push(node->left);
                 q.push(node->right);
             } else {
-                result += "#,";
+                result += "#,";  // Use "#" for null nodes
             }
         }
 
-        result.pop_back(); 
+        // Remove trailing null markers
+        while (!result.empty() && result.back() == ',' || result.back() == '#') {
+            result.pop_back();
+        }
+
         return result;
     }
 
+    // Decodes a serialized string to a tree.
     TreeNode* deserialize(string data) {
-        if (data == "#") return nullptr;
+        if (data.empty()) return nullptr;  // Handle empty input
 
         stringstream ss(data);
         string value;
-        vector<TreeNode*> nodes;
+        getline(ss, value, ',');  
+        TreeNode* root = new TreeNode(stoi(value));
 
-        while (getline(ss, value, ',')) {
-            if (value == "#") {
-                nodes.push_back(nullptr);
-            } else {
-                nodes.push_back(new TreeNode(stoi(value)));
+        queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            TreeNode* node = q.front();
+            q.pop();
+
+            if (getline(ss, value, ',') && value != "#") {
+                node->left = new TreeNode(stoi(value));
+                q.push(node->left);
+            }
+
+            if (getline(ss, value, ',') && value != "#") {
+                node->right = new TreeNode(stoi(value));
+                q.push(node->right);
             }
         }
 
-        int index = 1;
-        for (int i = 0; i < nodes.size(); i++) {
-            if (!nodes[i]) continue;
-
-            if (index < nodes.size()) nodes[i]->left = nodes[index++];
-            if (index < nodes.size()) nodes[i]->right = nodes[index++];
-        }
-
-        return nodes[0];
+        return root;
     }
 };
