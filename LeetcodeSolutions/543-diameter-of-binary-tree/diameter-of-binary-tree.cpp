@@ -1,18 +1,18 @@
 class Solution {
-    int diameter(TreeNode* root, int &maxD) {
-        if (root == nullptr) return 0;
-        int left = diameter(root->left,maxD);
-        int right = diameter(root->right,maxD);
+    pair<int, int> diameter(TreeNode* root) {
+        if (!root) return {0, 0};
 
-        maxD= max(maxD,left+right);
-        return max(left,right)+1;
+        auto left = diameter(root->left);
+        auto right = diameter(root->right);
+
+        int height = max(left.first, right.first) + 1;
+        int maxDiameter = max({left.second, right.second, left.first + right.first});
+
+        return {height, maxDiameter};
     }
 
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        int maxD = 0;
-        diameter(root,maxD);
-        return maxD;
-
+        return diameter(root).second;
     }
 };
