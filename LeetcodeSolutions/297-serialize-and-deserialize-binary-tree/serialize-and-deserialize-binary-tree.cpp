@@ -1,61 +1,36 @@
 class Codec {
 public:
 
-    // Encodes a tree to a single string.
+ 
     string serialize(TreeNode* root) {
-        if (!root) return "";  // Empty tree
-
-        queue<TreeNode*> q;
-        q.push(root);
-        string result;
-
-        while (!q.empty()) {
-            TreeNode* node = q.front();
-            q.pop();
-
-            if (node) {
-                result += to_string(node->val) + ",";
-                q.push(node->left);
-                q.push(node->right);
-            } else {
-                result += "#,";  // Use "#" for null nodes
-            }
-        }
-
-        // Remove trailing null markers
-        while (!result.empty() && result.back() == ',' || result.back() == '#') {
-            result.pop_back();
-        }
-
-        return result;
+        if (!root) return "#,"; 
+        
+        return to_string(root->val) + "," + serialize(root->left) + serialize(root->right);
     }
-
-    // Decodes a serialized string to a tree.
     TreeNode* deserialize(string data) {
-        if (data.empty()) return nullptr;  // Handle empty input
-
+        queue<string> nodes;
         stringstream ss(data);
         string value;
-        getline(ss, value, ',');  
-        TreeNode* root = new TreeNode(stoi(value));
 
-        queue<TreeNode*> q;
-        q.push(root);
-
-        while (!q.empty()) {
-            TreeNode* node = q.front();
-            q.pop();
-
-            if (getline(ss, value, ',') && value != "#") {
-                node->left = new TreeNode(stoi(value));
-                q.push(node->left);
-            }
-
-            if (getline(ss, value, ',') && value != "#") {
-                node->right = new TreeNode(stoi(value));
-                q.push(node->right);
-            }
+        while (getline(ss, value, ',')) {
+            nodes.push(value);
         }
+
+        return buildTree(nodes);
+    }
+
+private:
+    TreeNode* buildTree(queue<string>& nodes) {
+        if (nodes.empty()) return nullptr;
+
+        string value = nodes.front();
+        nodes.pop();
+
+        if (value == "#") return nullptr;
+
+        TreeNode* root = new TreeNode(stoi(value));
+        root->left = buildTree(nodes);
+        root->right = buildTree(nodes);
 
         return root;
     }
