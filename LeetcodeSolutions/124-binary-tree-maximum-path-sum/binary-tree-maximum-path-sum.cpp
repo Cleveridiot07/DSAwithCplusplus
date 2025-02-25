@@ -4,13 +4,15 @@ class Solution {
         int leftPath = helper(node->left,maxPath);
         int rightPath = helper(node->right,maxPath);
 
-        int way1 = leftPath + node->val;
-        int way2 = rightPath + node->val;
-        int way3 = leftPath+rightPath + node->val;
-        maxPath = max(maxPath,max(way1,max(way2,max(way3,node->val))));
+        maxPath = max(maxPath,leftPath + node->val);
+        maxPath = max(maxPath,rightPath + node->val);
+        maxPath = max(maxPath,rightPath+leftPath + node->val);
+        maxPath = max(maxPath,node->val);
 
-        int ret  = max(leftPath,rightPath);
-        return ret>0 ? node->val+ret : node->val;
+        if(leftPath <= 0 && rightPath <= 0) return node->val;
+
+        return max(leftPath,rightPath) + node->val;
+        
     }
 public:
     int maxPathSum(TreeNode* root) {
