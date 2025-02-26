@@ -11,7 +11,7 @@ class Solution {
             number += (left * right); 
         }
 
-        return number;
+        return dp[n] = number;
     }
 public:
     int numTrees(int n) {
