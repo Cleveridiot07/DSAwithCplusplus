@@ -7,7 +7,7 @@ class Solution {
             number += numberOfWays(i - 1,dp) * numberOfWays(n - i,dp); 
         }
 
-        return dp[n] = number;
+        return  number;
     }
 public:
     int numTrees(int n) {
