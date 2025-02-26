@@ -12,12 +12,18 @@
 class Solution {
     TreeNode* helper(TreeNode* root){
         if(!root) return nullptr;
+        
         TreeNode* left = root->left;
         TreeNode* right = root->right;
+        
         root->right = helper(root->left);
+        
         TreeNode* temp = root;
+        
         while(temp->right != nullptr) temp = temp->right;
+        
         temp->right = helper(right);
+        
         root->left = nullptr;
         return root;
     }
