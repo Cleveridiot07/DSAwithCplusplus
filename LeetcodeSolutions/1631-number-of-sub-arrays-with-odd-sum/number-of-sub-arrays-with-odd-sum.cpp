@@ -2,7 +2,7 @@ class Solution {
 public:
     long numOfSubarrays(vector<int>& arr) {
         long ans=0;
-        int even=0,odd=0,sum=0;
+        int even=1,odd=0,sum=0;
         int size=arr.size();
         for(int i=0;i<size;i++){
             sum=sum+arr[i];
@@ -11,7 +11,7 @@ public:
                 even=even+1;
             }
             else{
-                ans=ans+even+1;
+                ans=ans+even;
                 odd=odd+1;
             }
         }
